@@ -16,20 +16,26 @@
       v-on:vdropzone-sending="sendingEvent"
     ></vue-dropzone>
     <label class="custom-upload" for="input-file">
-      <input @change="previewFile" id="input-file" type="file" accept="application/pdf" />
+      <input @change="previewFile" id="input-file" type="file" />
     </label>
     <button @click.prevent="createPDF" variant="outline-primary">Submit PDF</button>
     <h1>{{url}}<h1>
+    <ShareButton :sharelink="url"></ShareButton>
+    <FileLog></FileLog>
   </main>
 </template>
 
 <script>
 import vue2Dropzone from "vue2-dropzone";
 import "vue2-dropzone/dist/vue2Dropzone.min.css";
-import axios from 'axios'
+import axios from 'axios';
+import ShareButton from "./ShareButton";
+import FileLog from "./FileLog";
 
 export default {
   components: {
+    ShareButton,
+    FileLog,
     vueDropzone: vue2Dropzone
   },
   data: function() {
