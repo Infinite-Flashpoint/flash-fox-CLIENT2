@@ -10817,6 +10817,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
+//
 var _default = {
   components: {
     vueDropzone: _vue2Dropzone.default
@@ -10838,8 +10839,11 @@ var _default = {
     };
   },
   methods: {
+    sayHello: function sayHello() {
+      console.log('say');
+    },
     sendingEvent: function sendingEvent(file, xhr, formData) {
-      console.log(file);
+      console.log(xhr);
       formData.append("image", file);
     },
     previewFile: function previewFile(event) {
@@ -10860,8 +10864,8 @@ var _default = {
           description = _this$formCreatePdf.description,
           pdf = _this$formCreatePdf.pdf;
       var bodyFormData = new FormData();
+      console.log(pdf);
       bodyFormData.append("image", pdf);
-      var token = localStorage.getItem("token");
       (0, _axios.default)({
         url: "http://flashpoint-server.panjisn.online/upload",
         method: "POST",
@@ -10949,20 +10953,10 @@ exports.default = _default;
         on: { "vdropzone-sending": _vm.sendingEvent }
       }),
       _vm._v(" "),
-      _c(
-        "label",
-        { staticClass: "custom-upload", attrs: { for: "input-file" } },
-        [
-          _c("input", {
-            attrs: {
-              id: "input-file",
-              type: "file",
-              accept: "application/pdf"
-            },
-            on: { change: _vm.previewFile }
-          })
-        ]
-      ),
+      _c("input", {
+        attrs: { id: "input-file", type: "file", accept: "application/pdf" },
+        on: { change: _vm.previewFile }
+      }),
       _vm._v(" "),
       _c(
         "button",
@@ -11164,7 +11158,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "35199" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "34613" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

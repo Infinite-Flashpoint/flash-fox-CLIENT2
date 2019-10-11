@@ -15,10 +15,11 @@
       :options="dropzoneOptions"
       v-on:vdropzone-sending="sendingEvent"
     ></vue-dropzone>
-    <label class="custom-upload" for="input-file">
       <input @change="previewFile" id="input-file" type="file" accept="application/pdf" />
-    </label>
     <button @click.prevent="createPDF" variant="outline-primary">Submit PDF</button>
+    <!-- <form
+      class="dropzone"
+      id="my-awesome-dropzone"></form> -->
     <h1>{{url}}<h1>
   </main>
 </template>
@@ -47,8 +48,11 @@ export default {
     };
   },
   methods: {
+      sayHello(){
+          console.log('say')
+      },
     sendingEvent(file, xhr, formData) {
-      console.log(file);
+      console.log(xhr);
       formData.append("image", file);
     },
     previewFile(event) {
@@ -64,9 +68,8 @@ export default {
 
       let { title, description, pdf } = this.formCreatePdf;
       var bodyFormData = new FormData();
+      console.log(pdf)
       bodyFormData.append("image", pdf);
-
-      let token = localStorage.getItem("token");
 
       axios({
         url: "http://flashpoint-server.panjisn.online/upload",
