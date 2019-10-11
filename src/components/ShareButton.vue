@@ -1,5 +1,5 @@
 <template>
-  <div class="share-button-container">
+  <div class="share-button-container align-self-center d-flex justify-content-center">
     <button data-network="twitter" class="st-custom-button share-button" :data-url="sharelink">
       <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
       width="25" height="25"

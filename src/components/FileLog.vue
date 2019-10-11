@@ -11,7 +11,6 @@
     </ul>
   </div>
 </template>
-
 <script>
 import Axios from 'axios'
 import ShareButtonLog from './ShareButtonLog'
@@ -30,13 +29,15 @@ export default {
       Axios.get('http://flashpoint-server.panjisn.online')
       .then(({data}) => {
         console.log(data)
-        this.links = data
+        data.forEach(element=>{
+          this.links.unshift(element)
+        })
+        // this.links = data
       })
     }
   }
 }
 </script>
-
 <style>
 .list-group {
   font-size: 15px;
@@ -44,4 +45,6 @@ export default {
   width: 50%;
   margin: auto;
 }
+div ul{height:400px; width:18%;}
+div ul{overflow:hidden; overflow-y:scroll;}
 </style>
