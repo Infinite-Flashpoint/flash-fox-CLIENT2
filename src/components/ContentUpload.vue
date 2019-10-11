@@ -9,21 +9,40 @@
     <p class="lead">
       <a href="#" @click.prevent="createPDF" class="btn btn-lg btn-secondary font-weight-bold">UPLOAD</a>
     </p>
+<<<<<<< HEAD
       <input @change="previewFile" id="input-file" type="file" accept="application/pdf" />
     <!-- <form
       class="dropzone"
       id="my-awesome-dropzone"></form> -->
+=======
+    <vue-dropzone
+      ref="myVueDropzone"
+      id="dropzone"
+      :options="dropzoneOptions"
+      v-on:vdropzone-sending="sendingEvent"
+    ></vue-dropzone>
+    <label class="custom-upload" for="input-file">
+      <input @change="previewFile" id="input-file" type="file" />
+    </label>
+    <button @click.prevent="createPDF" variant="outline-primary">Submit PDF</button>
+>>>>>>> 7d47512d3d361430f8932b4d2ebe23239c2221f9
     <h1>{{url}}<h1>
+    <ShareButton :sharelink="url"></ShareButton>
+    <FileLog></FileLog>
   </main>
 </template>
 
 <script>
 import vue2Dropzone from "vue2-dropzone";
 import "vue2-dropzone/dist/vue2Dropzone.min.css";
-import axios from 'axios'
+import axios from 'axios';
+import ShareButton from "./ShareButton";
+import FileLog from "./FileLog";
 
 export default {
   components: {
+    ShareButton,
+    FileLog,
     vueDropzone: vue2Dropzone
   },
   data: function() {
