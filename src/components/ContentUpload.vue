@@ -7,16 +7,9 @@
       No registration needed, feel free to upload a files and send to anyone.
     </p>
     <p class="lead">
-      <a href="#" class="btn btn-lg btn-secondary font-weight-bold">UPLOAD</a>
+      <a href="#" @click.prevent="createPDF" class="btn btn-lg btn-secondary font-weight-bold">UPLOAD</a>
     </p>
-    <vue-dropzone
-      ref="myVueDropzone"
-      id="dropzone"
-      :options="dropzoneOptions"
-      v-on:vdropzone-sending="sendingEvent"
-    ></vue-dropzone>
       <input @change="previewFile" id="input-file" type="file" accept="application/pdf" />
-    <button @click.prevent="createPDF" variant="outline-primary">Submit PDF</button>
     <!-- <form
       class="dropzone"
       id="my-awesome-dropzone"></form> -->
@@ -48,27 +41,30 @@ export default {
     };
   },
   methods: {
-      sayHello(){
-          console.log('say')
-      },
     sendingEvent(file, xhr, formData) {
-      console.log(xhr);
       formData.append("image", file);
     },
     previewFile(event) {
       this.formCreatePdf.pdf = event.target.files[0];
     },
     createPDF() {
-      // Swal.showLoading();
-      /* this.$swal.fire({
+      if (!this.formCreatePdf.pdf){
+        this.$swal.fire({
+            type: "error",
+            title: "failed to upload file ",
+            text: 'Cannot be empty',
+            showConfirmButton: false,
+            timer: 2000
+          });
+      } else {
+        this.$swal.fire({
         title: "wait a minute to upload data",
         allowOutsideClick: () => !this.$swal.isLoading()
       });
-      this.$swal.showLoading("wait a minute "); */
+      this.$swal.showLoading("wait a minute ");
 
-      let { title, description, pdf } = this.formCreatePdf;
+        let { title, description, pdf } = this.formCreatePdf;
       var bodyFormData = new FormData();
-      console.log(pdf)
       bodyFormData.append("image", pdf);
 
       axios({
@@ -77,17 +73,13 @@ export default {
         data: bodyFormData
       })
         .then(({data}) => {
-          // console.log(response.data);
-          //this.$emit("triggerReload");
-
-          // FB.XFBML.parse();
-          /* this.$swal.close();
+          this.$swal.close();
           this.$swal.fire({
             type: "success",
-            title: "successfully upload data",
+            title: "successfully upload file",
             showConfirmButton: false,
             timer: 2000
-          }); */
+          });
           console.log(data)
           this.url = data.link
           return axios({
@@ -98,25 +90,22 @@ export default {
               }
           })
         })
-        .then(({data})=>{
-            console.log(data)
+        .then(_=>{
         })
         .catch(err => {
             console.log(err)
-          /* let message =
+          let message =
             (err.response && err.response.data && err.response.data.message) ||
-            "error failed to upload data"; */
-          // console.log("masuk ke error")
-          // this.$swal('Hello Vue world!!!')
-          /* this.$swal.fire({
+            "error failed to upload file";
+          this.$swal.fire({
             type: "error",
-            title: "failed to upload data ",
+            title: "failed to upload file ",
             text: message,
             showConfirmButton: false,
             timer: 2000
-          }); */
-          // console.log(err.response)
+          });
         });
+      }
     }
   }
 };

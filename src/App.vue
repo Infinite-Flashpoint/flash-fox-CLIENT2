@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div class="d-flex w-100 h-100 flex-column">
     <Header></Header>
-      <ContentUpload></ContentUpload>>
+      <ContentUpload></ContentUpload>
       <Footer></Footer>
   </div>
 </template>
